@@ -30,7 +30,7 @@ pipeline {
             steps {
                 milestone(1)
                 kubernetesDeploy(
-                  kubeconfigId: 'kubeconfig1',
+                  kubeconfigId: 'kubeconfig',
                   configs: 'kubernetes.yml',
                   enableConfigSubstitution: true
                 ) 
