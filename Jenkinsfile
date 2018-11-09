@@ -5,6 +5,11 @@ pipeline {
         DOCKER_IMAGE_NAME = "harbor.workshop.pks101.com/library/frontend:latest"
     }
     stages {
+        stage('Build') {
+            steps {
+                echo 'Compiling Program'
+            }
+        }
         stage('DeployToPKS') {
             when {
                 branch 'master'
