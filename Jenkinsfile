@@ -5,37 +5,6 @@ pipeline {
         DOCKER_IMAGE_NAME = "harbor.workshop.pks101.com/library/frontend:latest"
     }
     stages {
-        stage('Build') {
-            steps {
-                echo 'Compiling Program'
-            }
-        }
-        stage('Build Docker Image') {
-            when { 
-                branch 'master'
-            }
-            steps {
-                script {
-                    app = docker.build(DOCKER_IMAGE_NAME)
-                    app.withRun("-d -p 8181:8181") { c ->
-                        sh 'curl localhost:8181'
-                    }    
-                }
-            }
-        }
-        stage('Push Docker Image') {
-            when {
-                branch 'master'
-            }
-            steps {
-                script {
-                    docker.withRegistry('https://harbor.workshop.pks101.com', 'harbor') {
-                        app.push("${env.BUILD_NUMBER}")
-                        app.push("latest")
-                    }
-                }
-            }
-        }
         stage('DeployToPKS') {
             when {
                 branch 'master'
