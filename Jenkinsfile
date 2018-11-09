@@ -23,7 +23,7 @@ pipeline {
                 }
             }
         }
-        stage('Push Docker Image to Harbor') {
+        stage('Push Docker Image') {
             when {
                 branch 'master'
             }
