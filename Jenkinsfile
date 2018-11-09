@@ -8,7 +8,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Compiling Program'
-                sh 'go test -v'
+                #sh 'go test -v'
             }
         }
         stage('Build Docker Image') {
