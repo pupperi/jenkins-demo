@@ -8,7 +8,6 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Compiling Program'
-                #sh 'go test -v'
             }
         }
         stage('Build Docker Image') {
@@ -24,7 +23,7 @@ pipeline {
                 }
             }
         }
-        stage('Push Docker Image') {
+        stage('Push Docker Image to Harbor') {
             when {
                 branch 'master'
             }
@@ -76,4 +75,4 @@ pipeline {
             }
         }
     }
-}
+}             
