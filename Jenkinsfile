@@ -17,7 +17,7 @@ pipeline {
                 script {
                     app = docker.build(DOCKER_IMAGE_NAME)
                     app.withRun("-d -p 80:8181") { c ->
-                        sh 'curl localhost:80'
+                        //sh 'curl localhost:80'
                     }    
                 }
             }
