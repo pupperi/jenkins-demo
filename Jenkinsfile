@@ -10,7 +10,7 @@ pipeline {
                 echo 'Compiling Program'
             }
         }
-        stage('Build Docker Image 123') {
+        stage('Build Docker Image') {
             when { 
                 branch 'master'
             }
