@@ -5,6 +5,7 @@ WORKDIR /go/src/app
 
 ADD ./main.go ./
 ADD ./main_test.go ./
+ADD ./index.gohtml ./
 
 RUN go get -d -v ./...
 RUN go install -v ./...
