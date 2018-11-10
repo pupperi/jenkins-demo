@@ -9,7 +9,7 @@ pipeline {
                 echo 'Compiling Program'
             }
         }
-        stage('Build Docker Image') {
+        stage('Build Docker Image 123') {
             when { 
                 branch 'master'
             }
@@ -58,9 +58,9 @@ pipeline {
                         script {
                             //def ip = sh (script: "kubectl get all", returnStdout: true)
                             def ip = sh (script: "kubectl get svc golang --output=jsonpath={'.status.loadBalancer.ingress[].ip'}", returnStdout: true)
-                            sh 'sleep 5'
+                            sh 'sleep 60'
                             echo "IP is ${ip}"
-                            echo "URL is http://${ip}:81"
+                            echo "URL is http://${ip}"
                             try {
                             } catch (err) {
                              echo: 'caught error: $err'
