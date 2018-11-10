@@ -29,7 +29,7 @@ pipeline {
             }
             steps {
                 script {
-                    docker.withRegistry('https://harbor.workshop.pks101.com', 'harbor') {
+                    docker.withRegistry('https://harbor.workshop.pks101.com/library', 'harbor') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
