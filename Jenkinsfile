@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         PATH = "/usr/local/go/bin:$PATH"
-        DOCKER_IMAGE_NAME = "harbor.workshop.pks101.com/library/frontend:latest"
+        DOCKER_IMAGE_NAME = "nginx:latest"
     }
     stages {
         stage('Build') {
