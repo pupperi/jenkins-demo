@@ -2,4 +2,4 @@ FROM nginx
 COPY static-html-directory /usr/share/nginx/html
 
 CMD ["app"]
-EXPOSE 80
+EXPOSE 8181
