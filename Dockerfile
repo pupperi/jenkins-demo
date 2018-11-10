@@ -1,10 +1,5 @@
-FROM golang:1.10
-
-WORKDIR /go/src/app
-COPY . .
-
-RUN go get -d -v ./...
-RUN go install -v ./...
+FROM nginx
+COPY static-html-directory /usr/share/nginx/html
 
 CMD ["app"]
-EXPOSE 8181
+EXPOSE 80
