@@ -1,4 +1,4 @@
 FROM nginx
 
 CMD ["app"]
-EXPOSE 8080
+EXPOSE 8181
