@@ -1,7 +1,6 @@
 pipeline {
     agent any
     environment {
-        PATH = "/usr/local/go/bin:$PATH"
         DOCKER_IMAGE_NAME = "library/nginx"
     }
     stages {
@@ -58,7 +57,7 @@ pipeline {
                 retry(10) {
                         script {
                             //def ip = sh (script: "kubectl get all", returnStdout: true)
-                            def ip = sh (script: "kubectl get svc gocicd --output=jsonpath={'.status.loadBalancer.ingress[].ip'}", returnStdout: true)
+                            def ip = sh (script: "kubectl get svc nginx --output=jsonpath={'.status.loadBalancer.ingress[].ip'}", returnStdout: true)
                             sh 'sleep 5'
                             echo "IP is ${ip}"
                             echo "URL is http://${ip}:8181"
