@@ -9,15 +9,15 @@ pipeline {
                 echo 'Compiling Program'
             }
         }
-        stage('Build Docker Image 123') {
+        stage('Build Docker Image') {
             when { 
                 branch 'master'
             }
             steps {
                 script {
                     app = docker.build(DOCKER_IMAGE_NAME)
-                    app.withRun("-d -p 8181:8181") { c ->
-                        sh 'curl localhost:8181'
+                    app.withRun("-d -p 8080:8080") { c ->
+                        sh 'curl localhost:8080'
                     }    
                 }
             }
@@ -60,7 +60,7 @@ pipeline {
                             def ip = sh (script: "kubectl get svc nginx --output=jsonpath={'.status.loadBalancer.ingress[].ip'}", returnStdout: true)
                             sh 'sleep 5'
                             echo "IP is ${ip}"
-                            echo "URL is http://${ip}:8181"
+                            echo "URL is http://${ip}:8080"
                             try {
                             } catch (err) {
                              echo: 'caught error: $err'
