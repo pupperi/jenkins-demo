@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         PATH = "/usr/local/go/bin:$PATH"
-        DOCKER_IMAGE_NAME = "nginx"
+        DOCKER_IMAGE_NAME = "library/nginx"
     }
     stages {
         stage('Build') {
@@ -30,8 +30,8 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://harbor.workshop.pks101.com/', 'harbor') {
-                        app.push("library/"+"${env.BUILD_NUMBER}")
-                        app.push("library/"+"latest")
+                        app.push("${env.BUILD_NUMBER}")
+                        app.push("latest")
                     }
                 }
             }
