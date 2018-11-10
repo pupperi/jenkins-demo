@@ -57,7 +57,7 @@ pipeline {
                 retry(10) {
                         script {
                             //def ip = sh (script: "kubectl get all", returnStdout: true)
-                            def ip = sh (script: "kubectl get svc nginx --output=jsonpath={'.status.loadBalancer.ingress[].ip'}", returnStdout: true)
+                            def ip = sh (script: "kubectl get svc golang --output=jsonpath={'.status.loadBalancer.ingress[].ip'}", returnStdout: true)
                             sh 'sleep 5'
                             echo "IP is ${ip}"
                             echo "URL is http://${ip}:81"
