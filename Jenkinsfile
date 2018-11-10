@@ -29,6 +29,7 @@ pipeline {
             }
             steps {
                 script {
+                    echo 'Pushing docker image'
                     docker.withRegistry('https://harbor.workshop.pks101.com', 'harbor') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
