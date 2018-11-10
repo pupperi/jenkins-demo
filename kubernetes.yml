@@ -32,4 +32,4 @@ spec:
       - name: nginx
         image: $DOCKER_IMAGE_NAME:$BUILD_NUMBER
         ports:
-        - containerPort: 8181
+        - containerPort: 80
