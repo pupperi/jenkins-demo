@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE_NAME = "harbor.workshop.pks101.com/library/nginx"
+        DOCKER_IMAGE_NAME = "harbor.workshop.pks101.com/library/golang"
     }
     stages {
         stage('Build') {
@@ -16,8 +16,8 @@ pipeline {
             steps {
                 script {
                     app = docker.build(DOCKER_IMAGE_NAME)
-                    app.withRun("-d -p 80:8181") { c ->
-                        //sh 'curl localhost:80'
+                    app.withRun("-d -p 8181:8181") { c ->
+                        sh 'curl localhost:8181'
                     }    
                 }
             }
@@ -60,7 +60,7 @@ pipeline {
                             def ip = sh (script: "kubectl get svc nginx --output=jsonpath={'.status.loadBalancer.ingress[].ip'}", returnStdout: true)
                             sh 'sleep 5'
                             echo "IP is ${ip}"
-                            echo "URL is http://${ip}:80"
+                            echo "URL is http://${ip}:81"
                             try {
                             } catch (err) {
                              echo: 'caught error: $err'

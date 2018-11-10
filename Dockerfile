@@ -1,4 +1,10 @@
-FROM nginx
+FROM golang:1.10
 
-COPY default.conf /etc/nginx/conf.d/
-COPY index.html /usr/share/nginx/html/
+WORKDIR /go/src/app
+COPY . .
+
+RUN go get -d -v ./...
+RUN go install -v ./...
+
+CMD ["app"]
+EXPOSE 8181
