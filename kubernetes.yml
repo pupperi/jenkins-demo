@@ -1,35 +1,35 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: gocicd
+  name: nginx
 spec:
   type: LoadBalancer
   selector:
-    app: gocicd
+    app: nginx
   ports:
   - protocol: TCP
-    port: 8181
+    port: 80
 
 ---
 
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: gocicd
+  name: nginx
   labels:
-    app: gocicd
+    app: nginx
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: gocicd
+      app: nginx
   template:
     metadata:
       labels:
-        app: gocicd
+        app: nginx
     spec:
       containers:
-      - name: gocicd
+      - name: nginx
         image: $DOCKER_IMAGE_NAME:$BUILD_NUMBER
         ports:
         - containerPort: 8181
