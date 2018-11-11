@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE_NAME = "registry.hub.docker.com/r/pupperi/demo/jenkins-demo"
+        DOCKER_IMAGE_NAME = "demo/jenkins-demo"
     }
     stages {
         stage('Build') {
