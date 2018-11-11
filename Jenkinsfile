@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE_NAME = "pupperi/demo/jenkins-demo"
+        DOCKER_IMAGE_NAME = "jenkins-demo"
     }
     stages {
         stage('Build') {
