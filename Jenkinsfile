@@ -22,8 +22,8 @@ pipeline {
             steps {
                 script {
                     sh 'docker login -u pupperi -p Love2flY https://registry.hub.docker.com/'
-                    sh 'docker tag pupperi/jenkins-demo registry.hub.docker.com/pupperi/jenkins-demo:${env.BUILD_NUMBER}'
-                    sh 'docker push registry.hub.docker.com/pupperi/jenkins-demo:${env.BUILD_NUMBER}'
+                    sh 'docker tag pupperi/jenkins-demo registry.hub.docker.com/pupperi/jenkins-demo:$BUILD_NUMBER'
+                    sh 'docker push registry.hub.docker.com/pupperi/jenkins-demo:$BUILD_NUMBER'
                     sh 'docker tag pupperi/jenkins-demo registry.hub.docker.com/pupperi/jenkins-demo:latest'
                     sh 'docker push registry.hub.docker.com/pupperi/jenkins-demo:latest'
                 }
