@@ -1,2 +1,4 @@
-FROM nginx
-COPY static-html-directory /usr/share/nginx/html
+FROM nginx:alpine
+
+COPY default.conf /etc/nginx/conf.d/
+COPY index.html /usr/share/nginx/html/

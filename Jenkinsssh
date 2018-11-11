@@ -22,10 +22,10 @@ pipeline {
             steps {
                 script {
                     sh 'docker login -u pupperi -p Love2flY https://registry.hub.docker.com/'
-                    sh 'docker tag harbor.workshop.pks101.com/library/golang harbor.workshop.pks101.com/library/golang:62'
-                    sh 'docker push harbor.workshop.pks101.com/library/golang:62'
-                    sh 'docker tag harbor.workshop.pks101.com/library/golang harbor.workshop.pks101.com/library/golang:latest'
-                    sh 'docker push harbor.workshop.pks101.com/library/golang:latest'
+                    sh 'docker tag pupperi/jenkins-demo registry.hub.docker.com/pupperi/jenkins-demo:${env.BUILD_NUMBER}'
+                    sh 'docker push registry.hub.docker.com/pupperi/jenkins-demo:${env.BUILD_NUMBER}'
+                    sh 'docker tag pupperi/jenkins-demo registry.hub.docker.com/pupperi/jenkins-demo:latest'
+                    sh 'docker push registry.hub.docker.com/pupperi/jenkins-demo:latest'
                 }
             }
         }
