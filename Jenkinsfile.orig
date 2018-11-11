@@ -9,23 +9,23 @@ pipeline {
                 echo 'Compiling Program'
             }
         }
-        stage('Build Docker Image') {
+        stage('Build Docker Image 123') {
             steps {
                 script {
-                    sh 'docker build -t registry.hub.docker.com/pupperi/jenkins-demo .'
-                    sh 'docker run -d -p 8181:8181 registry.hub.docker.com/pupperi/jenkins-demo'
-                    sh 'curl localhost:8181'  
+                    app = docker.build(DOCKER_IMAGE_NAME)
+                    app.withRun("-d -p 8181:8181") { c ->
+                        sh 'curl localhost:8181'
+                    }    
                 }
             }
         }
         stage('Push Docker Image') {
             steps {
                 script {
-                    sh 'docker login -u pupperi -p Love2flY https://registry.hub.docker.com/'
-                    sh 'docker tag pupperi/jenkins-demo registry.hub.docker.com/pupperi/jenkins-demo:${env.BUILD_NUMBER}'
-                    sh 'docker push registry.hub.docker.com/pupperi/jenkins-demo:${env.BUILD_NUMBER}'
-                    sh 'docker tag pupperi/jenkins-demo registry.hub.docker.com/pupperi/jenkins-demo:latest'
-                    sh 'docker push registry.hub.docker.com/pupperi/jenkins-demo:latest'
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
+                        app.push("${env.BUILD_NUMBER}")
+                        app.push("latest")
+                    }
                 }
             }
         }
