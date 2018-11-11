@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE_NAME = "harbor.workshop.pks101.com/library/golang"
+        DOCKER_IMAGE_NAME = "pupperi/demo/jenkins-demo"
     }
     stages {
         stage('Build') {
@@ -28,7 +28,7 @@ pipeline {
             }
             steps {
                 script {
-                    docker.withRegistry('https://harbor.workshop.pks101.com/', 'harbor') {
+                    docker.withRegistry('pupperi/demo', 'pupperi') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
@@ -57,8 +57,8 @@ pipeline {
                 retry(10) {
                         script {
                             //def ip = sh (script: "kubectl get all", returnStdout: true)
-                            def ip = sh (script: "kubectl get svc golang --output=jsonpath={'.status.loadBalancer.ingress[].ip'}", returnStdout: true)
-                            sh 'sleep 60'
+                            def ip = sh (script: "kubectl get svc golang --output=jsonpath={'.status.loadBalancer.ingress[].hostname'}", returnStdout: true)
+                            sh 'sleep 300'
                             echo "IP is ${ip}"
                             echo "URL is http://${ip}"
                             try {
