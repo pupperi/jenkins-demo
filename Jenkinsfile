@@ -23,8 +23,6 @@ pipeline {
                     sh 'docker login -u pupperi -p Love2flY https://registry.hub.docker.com/'
                     sh 'docker tag pupperi/nginx-demo registry.hub.docker.com/pupperi/nginx-demo:$BUILD_NUMBER'
                     sh 'docker push registry.hub.docker.com/pupperi/nginx-demo:$BUILD_NUMBER'
-                    sh 'docker tag pupperi/nginx-demo registry.hub.docker.com/pupperi/nginx-demo:latest'
-                    sh 'docker push registry.hub.docker.com/pupperi/nginx-demo:latest'
                 }
             }
         }
