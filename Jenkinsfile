@@ -10,9 +10,6 @@ pipeline {
             }
         }
         stage('Build Docker Image 123') {
-            when { 
-                branch 'master'
-            }
             steps {
                 script {
                     app = docker.build(DOCKER_IMAGE_NAME)
@@ -23,9 +20,6 @@ pipeline {
             }
         }
         stage('Push Docker Image') {
-            when {
-                branch 'master'
-            }
             steps {
                 script {
                     docker.withRegistry('pupperi/demo', 'pupperi') {
@@ -36,9 +30,6 @@ pipeline {
             }
         }
         stage('DeployToPKS') {
-            when {
-                branch 'master'
-            }
             steps {
                 milestone(1)
                 kubernetesDeploy(
@@ -49,9 +40,6 @@ pipeline {
             }
         }
         stage('Get Service IP') {
-            when {
-                branch 'master'
-            }
             steps {
                 //milestone(1)
                 retry(10) {
