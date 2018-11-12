@@ -28,12 +28,9 @@ pipeline {
         }
         stage('DeployToPKS') {
             steps {
-                milestone(1)
-                kubernetesDeploy(
-                  kubeconfigId: 'kubeconfig',
-                  configs: 'kubernetes.yml',
-                  enableConfigSubstitution: true
-                ) 
+                script{
+                   sh 'kubectl --kubeconfig /var/root/.kube/config create -f kubernetes.yml'
+               } 
             }
         }
         stage('Get Service IP') {
