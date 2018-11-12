@@ -28,10 +28,19 @@ pipeline {
                 }
             }
         }
-        stage('DeployToPKS') {
+        stage('DeployToPKSvSphere') {
             steps {
                 script{
+                   echo ' Deploying to vSphere' 
                    sh 'kubectl --kubeconfig /var/root/.kube/config create -f kubernetes.yml'
+               } 
+            }
+        }
+        stage('DeployToPKSAWS') {
+            steps {
+                script{
+                    echo 'Deploying to AWS'
+                   //sh 'kubectl --kubeconfig /var/root/.kube/config create -f kubernetes.yml'
                } 
             }
         }
