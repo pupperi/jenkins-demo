@@ -40,7 +40,7 @@ pipeline {
             steps {
                 retry(10) {
                         script {
-                            def ip = sh (script: "kubectl get svc nginx --output=jsonpath={'.status.loadBalancer.ingress[].hostname'}", returnStdout: true)
+                            def ip = sh (script: "kubectl get service nginx --output=jsonpath={'.status.loadBalancer.ingress[].hostname'}", returnStdout: true)
                             sh 'sleep 30'
                             echo "IP is ${ip}"
                             echo "URL is http://${ip}"
