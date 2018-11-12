@@ -20,7 +20,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    sh 'docker login -u xxxxx -p xxxxx https://registry.hub.docker.com/'
+                    sh 'docker login -u pupperi -p Love2flY https://registry.hub.docker.com/'
                     sh 'docker tag registry.hub.docker.com/pupperi/nginx-demo registry.hub.docker.com/pupperi/nginx-demo:$BUILD_NUMBER'
                     sh 'docker push registry.hub.docker.com/pupperi/nginx-demo:$BUILD_NUMBER'
 		    sh 'docker tag registry.hub.docker.com/pupperi/nginx-demo registry.hub.docker.com/pupperi/nginx-demo:latest'
