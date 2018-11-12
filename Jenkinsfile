@@ -37,7 +37,7 @@ pipeline {
             steps {
                 script {
                     //def ip = sh (script: "kubectl get all", returnStdout: true)
-                            def ip = sh (script: "kubectl get service nginx --output=jsonpath={'.status.loadBalancer.ingress[].hostname'}", returnStdout: true)
+                            def ip = sh (script: "kubectl --kubeconfig /var/root/.kube/config get service nginx --output=jsonpath={'.status.loadBalancer.ingress[].hostname'}", returnStdout: true)
                             sh 'sleep 300'
                             echo "IP is ${ip}"
                             echo "URL is http://${ip}"
