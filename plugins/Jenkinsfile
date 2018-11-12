@@ -36,21 +36,5 @@ pipeline {
                 ) 
             }
         }
-        stage('Get Service IP') {
-            steps {
-                retry(10) {
-                        script {
-                            def ip = sh (script: "kubectl get svc nginx --output=jsonpath={'.status.loadBalancer.ingress[].hostname'}", returnStdout: true)
-                            sh 'sleep 30'
-                            echo "IP is ${ip}"
-                            echo "URL is http://${ip}"
-                            try {
-                            } catch (err) {
-                             echo: 'caught error: $err'
-                            }
-                        }
-                }
-            }
-        }
     }
 }             
