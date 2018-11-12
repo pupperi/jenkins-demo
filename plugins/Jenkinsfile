@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE_NAME = "harbor.workshop.pks101.com/library/nginx"
+        DOCKER_IMAGE_NAME = "pupperi/nginx-demo"
     }
     stages {
         stage('Build') {
@@ -19,7 +19,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://harbor.workshop.pks101.com/', 'harbor') {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
