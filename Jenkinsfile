@@ -35,11 +35,9 @@ pipeline {
         }
         stage('Get Service IP') {
             steps {
-                //milestone(1)
-                retry(10) {
-                        script {
-                            //def ip = sh (script: "kubectl get all", returnStdout: true)
-                            def ip = sh (script: "kubectl get svc golang --output=jsonpath={'.status.loadBalancer.ingress[].hostname'}", returnStdout: true)
+                script {
+                    //def ip = sh (script: "kubectl get all", returnStdout: true)
+                            def ip = sh (script: "kubectl get svc nginx --output=jsonpath={'.status.loadBalancer.ingress[].hostname'}", returnStdout: true)
                             sh 'sleep 300'
                             echo "IP is ${ip}"
                             echo "URL is http://${ip}"
