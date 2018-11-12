@@ -12,43 +12,41 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    app = docker.build(DOCKER_IMAGE_NAME)
+                    sh 'docker build -t registry.hub.docker.com/pupperi/nginx-demo .'
+                    sh 'docker run -d -p 8181:8181 registry.hub.docker.com/pupperi/nginx-demo'  
                 }
             }
         }
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
-                        app.push("${env.BUILD_NUMBER}")
-                        app.push("latest")
-                    }
+                    sh 'docker login -u xxxxx -p xxxxx https://registry.hub.docker.com/'
+                    sh 'docker tag registry.hub.docker.com/pupperi/nginx-demo registry.hub.docker.com/pupperi/nginx-demo:$BUILD_NUMBER'
+                    sh 'docker push registry.hub.docker.com/pupperi/nginx-demo:$BUILD_NUMBER'
+		    sh 'docker tag registry.hub.docker.com/pupperi/nginx-demo registry.hub.docker.com/pupperi/nginx-demo:latest'
+		    sh 'docker push registry.hub.docker.com/pupperi/nginx-demo:latest'
                 }
             }
         }
         stage('DeployToPKS') {
             steps {
-                milestone(1)
-                kubernetesDeploy(
-                  kubeconfigId: 'kubeconfig',
-                  configs: 'kubernetes.yml',
-                  enableConfigSubstitution: true
-                ) 
+                script{
+                   sh 'kubectl --kubeconfig /var/root/.kube/config create -f kubernetes.yml'
+               } 
             }
         }
         stage('Get Service IP') {
             steps {
-                retry(10) {
-                        script {
-                            def ip = sh (script: "kubectl get service nginx --output=jsonpath={'.status.loadBalancer.ingress[].hostname'}", returnStdout: true)
-                            sh 'sleep 30'
+                script {
+                    //def ip = sh (script: "kubectl get all", returnStdout: true)
+                            def ip = sh (script: "kubectl --kubeconfig /var/root/.kube/config get service nginx --output=jsonpath={'.status.loadBalancer.ingress[].hostname'}", returnStdout: true)
+                            sh 'sleep 10'
                             echo "IP is ${ip}"
                             echo "URL is http://${ip}"
                             try {
                             } catch (err) {
                              echo: 'caught error: $err'
                             }
-                        }
                 }
             }
         }
