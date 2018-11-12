@@ -45,7 +45,6 @@ pipeline {
                             } catch (err) {
                              echo: 'caught error: $err'
                             }
-                        }
                 }
             }
         }
