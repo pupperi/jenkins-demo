@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script{
                    echo ' Deploying to vSphere' 
-                   sh 'kubectl --kubeconfig /var/root/.kube/config create -f kubernetes.yml'
+                   sh 'kubectl --kubeconfig /root/.kube/config create -f kubernetes.yml'
                } 
             }
         }
@@ -41,7 +41,7 @@ pipeline {
             steps {
                 script{
                     echo 'Deploying to AWS'
-                   //sh 'kubectl --kubeconfig /var/root/.kube/config create -f kubernetes.yml'
+                   //sh 'kubectl --kubeconfig /root/.kube/config create -f kubernetes.yml'
                } 
             }
         }
