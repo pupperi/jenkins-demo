@@ -14,7 +14,7 @@ pipeline {
                 script {
                     sh 'docker build -t registry.hub.docker.com/pupperi/nginx-demo .'
                     sh 'docker run -d -p 8181:8181 registry.hub.docker.com/pupperi/nginx-demo'  
-                    sh 'docker stop $(docker ps -a | grep nginx-demo | awk '{print $1}')'
+                    sh 'docker stop $(docker ps -a | grep nginx-demo | awk \'{print $1}\')'
                 }
             }
         }
